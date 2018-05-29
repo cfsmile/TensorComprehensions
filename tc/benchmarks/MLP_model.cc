@@ -24,6 +24,7 @@
 #include "tc/aten/aten.h"
 
 #include "tc/aten/aten_compiler.h"
+#include "tc/core/check.h"
 #include "tc/core/cuda/cuda_mapping_options.h"
 
 #include "../test/caffe2/cuda/test_harness.h"
@@ -150,7 +151,7 @@ void ProductionModel::run1LUT(
     uint32_t E1,
     const tc::CudaMappingOptions& options,
     bool use_flags) {
-  CHECK_LT(0, E1);
+  TC_CHECK_LT(0, E1);
 
   // This test uses an c2 OpTester because we need to run the C2 reference
   // implementation for TcLUTOp.
@@ -238,8 +239,8 @@ void ProductionModel::run2LUT(
     uint32_t E2,
     const tc::CudaMappingOptions& options,
     bool use_flags) {
-  CHECK_LT(0, E1);
-  CHECK_LT(0, E2);
+  TC_CHECK_LT(0, E1);
+  TC_CHECK_LT(0, E2);
 
   auto ws_init_func = [=](Workspace& w) {
     AddDeterministicallyRandomInput<caffe2::CUDABackend, float>(

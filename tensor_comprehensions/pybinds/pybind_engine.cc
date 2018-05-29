@@ -26,6 +26,7 @@
 
 #include "pybind_utils.h"
 #include "tc/aten/aten_compiler.h"
+#include "tc/core/check.h"
 #include "tc/core/cuda/cuda.h"
 #include "tc/core/cuda/cuda_mapping_options.h"
 #include "tc/core/cuda/cuda_tc_executor.h"
@@ -114,7 +115,7 @@ PYBIND11_MODULE(tc, m) {
               const std::string& entryPoint,
               py::list& inputs,
               py::list& outputs) {
-            CHECK_GE(outputs.size(), 1u);
+            TC_CHECK_GE(outputs.size(), 1u);
             auto atOutputs = getATenTensors(outputs, dlpack);
             tc::aten::uncheckedRun(
                 *instance.compiled.at(entryPoint),

@@ -25,6 +25,7 @@
 #include "tc/aten/aten_autotuner.h"
 #include "tc/aten/aten_compiler.h"
 #include "tc/autotuner/genetic_search.h"
+#include "tc/core/check.h"
 #include "tc/core/cuda/cuda_mapping_options.h"
 #include "tc/core/cuda/cuda_tc_executor.h"
 #include "tc/core/flags.h"
@@ -122,7 +123,7 @@ def wavenet2layers(
                                     skip_bias1};
   auto bestOption = geneticAutotuneATen.tune(
       "wavenet2layers", inputs, naiveOptions, FLAGS_proto_path);
-  CHECK_GT(bestOption.size(), 0u);
+  TC_CHECK_GT(bestOption.size(), 0u);
 
   // 4. Compile and run the TC with the best option.
   // Output are pre-allocated and passed.
