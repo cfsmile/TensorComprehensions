@@ -29,7 +29,6 @@ set(CORE_TEST_FILES
   test_core
   test_inference
   test_tc2halide
-  test_check
 )
 
 foreach(i ${CORE_TEST_FILES})
@@ -37,6 +36,10 @@ foreach(i ${CORE_TEST_FILES})
   add_test(${i} ${i})
   target_link_libraries(${i} ${GOOGLE_LIBS} tc_core)
 endforeach()
+
+add_executable(test_check test_check.cc)
+target_link_libraries(test_check ${GOOGLE_LIBS})
+
 
 ################################################################################
 # CPP cuda_mapper crosscompile tests
